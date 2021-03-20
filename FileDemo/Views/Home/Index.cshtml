@@ -1,0 +1,66 @@
+﻿@model AttachmentViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>File Name</label>
+            <input class="form-control form-control-lg" placeholder="File Name"
+                   asp-for="FileName" required />
+        </div>
+        <div class="form-group col-md-3">
+            <label>Description</label>
+            <input class="form-control form-control-lg" placeholder="Description"
+                   asp-for="Description" required />
+        </div>
+        <div class="form-group col-md-3">
+            <label>Attachment</label>
+            <input class="form-control form-control-lg" placeholder="Middle Name"
+                   asp-for="attachment" type="file" required />
+        </div>
+        <div class="form-group">
+            <label>``</label>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>File Name</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+             @if (Model != null)
+             {
+            
+                @foreach (var row in Model.attachments)
+                {
+            <tr>
+                <td> @row.id</td>
+                <td> @row.FileName</td>
+                <td> @row.Description</td>
+                <td><a class="btn btn-primary" asp-action="GetAttachment" asp-controller="Home" asp-route-ID="@row.id">View</a></td>
+                <td><a class="btn btn-primary" asp-action="GetFileStreamResultDemo" asp-controller="Home" asp-route-filename="@row.FileName">Download</a></td>
+            </tr>
+                }
+           
+             }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
